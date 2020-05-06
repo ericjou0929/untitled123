@@ -52,8 +52,8 @@
 # user =[]
 # user.append(poker.pop(0))
 # while True:
-#     print('user:', user, getScore()core(user))
-#     flag = int(input('是否要牌? (0:不要 , 1:要)')
+#     print('user:', user, getScore(user))
+#     flag = int(input('是否要牌?(0:不要 , 1:要)'))
 #     if flag == 0:
 #         break
 #     user.append(poker.pop(0))
@@ -63,6 +63,7 @@
 import random as r
 
 poker = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'] * 4
+
 # 計算分數
 def getScore(po): # 假設 po = ['A', 9, 'J']
     sum = 0
@@ -75,6 +76,7 @@ def getScore(po): # 假設 po = ['A', 9, 'J']
             continue
         sum = sum + p
     return sum
+
 # 是否要補牌 (True, False)
 def draw(pc):
     score = getScore(pc)
@@ -106,6 +108,26 @@ def draw(pc):
         else:
             return False
 
+def getWinner(user, pc):
+    user_score = getScore(user)
+    pc_score = getScore(pc)
+
+    if user_score > 10.5 and pc_score > 10.5:
+        return None
+
+    if user_score <= 10.5 and pc_score > 10.5:
+        return 'user'
+
+    if user_score > 10.5 and pc_score <= 10.5:
+        return 'pc'
+
+    if user_score == pc_score :
+        return 'Equal'
+
+    if user_score > pc_score:
+        return 'user'
+    else:
+        return 'pc'
 # 洗牌
 r.shuffle(poker)
 
@@ -118,6 +140,7 @@ while True:
     if flag == 0:
         break
     user.append(poker.pop(0))
+
 # PC 拿牌
 pc = []
 pc.append(poker.pop(0))
@@ -127,3 +150,6 @@ while True:
         continue
     break
 print('pc: ', pc, getScore(pc))
+
+# 誰贏 ?
+print(getWinner(user, pc))

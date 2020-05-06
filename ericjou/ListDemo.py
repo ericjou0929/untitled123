@@ -34,3 +34,7 @@ def score(po):  #假設 po =[ 'A', 9, 'J']
     return sum
 print(poker[:3], score(poker[:3]))
 
+#元素是否存在於數組中
+print('A' in poker)
+
+
